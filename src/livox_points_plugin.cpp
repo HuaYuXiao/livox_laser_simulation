@@ -39,7 +39,7 @@ void convertDataToRotateInfo(const std::vector<std::vector<double>> &datas, std:
 
 void LivoxPointsPlugin::Load(gazebo::sensors::SensorPtr _parent, sdf::ElementPtr sdf) {
     std::vector<std::vector<double>> datas;
-    std::string file_name = sdf->Get<std::string>("csv_file_name");
+    std::string file_name = getenv("HOME") + std::string("/") + sdf->Get<std::string>("csv_file_name");
     ROS_INFO_STREAM("load csv file name:" << file_name);
     if (!CsvReader::ReadCsvFile(file_name, datas)) {
         ROS_INFO_STREAM("cannot get csv file!" << file_name << "will return !");
