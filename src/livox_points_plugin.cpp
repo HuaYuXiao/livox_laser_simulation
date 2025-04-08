@@ -4,6 +4,7 @@
 
 #include "livox_laser_simulation/livox_points_plugin.h"
 #include <ros/ros.h>
+#include <ros/package.h>
 #include <sensor_msgs/PointCloud.h>
 #include <gazebo/physics/Model.hh>
 #include <gazebo/physics/MultiRayShape.hh>
@@ -39,7 +40,7 @@ void convertDataToRotateInfo(const std::vector<std::vector<double>> &datas, std:
 
 void LivoxPointsPlugin::Load(gazebo::sensors::SensorPtr _parent, sdf::ElementPtr sdf) {
     std::vector<std::vector<double>> datas;
-    std::string file_name = getenv("HOME") + std::string("/") + sdf->Get<std::string>("csv_file_name");
+    std::string file_name = ros::package::getPath("livox_laser_simulation") + std::string("/scan_mode/mid360.csv");
     ROS_INFO_STREAM("load csv file name:" << file_name);
     if (!CsvReader::ReadCsvFile(file_name, datas)) {
         ROS_INFO_STREAM("cannot get csv file!" << file_name << "will return !");
